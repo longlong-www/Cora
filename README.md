@@ -1,53 +1,71 @@
 
+# Getting Started
 
-## Getting Started
- **Harmfulness Evaluation**  
-   - **Prompt File:** `pair.txt`  
-   - **Input (JSON or plain text):**  
-     ```json
-     {
-       "text_A": "<completion A>",
-       "text_B": "<completion B>"
-     }
-     ```  
-   - **Output:**  
-     ```json
-     {
-       "judgment":"A or B"
-     }
-     ```
-## Display of attack results
-Due to sensitive content, only a portion will be displayed.
-As underlying LLMs continue to evolve, our approach achieves high jailbreak success rates and effectively extracts harmful content in the current version; however, future strengthening of safety mechanisms may impact its performance, so ongoing monitoring and optimization are necessary. 
-﻿![show](./image/show2.png)
+## Harmfulness Evaluation
 
-  ## Hazard assessment process based on ranking
+- **Input:**
+```json
+{
+  "photo_A": "<image A>",
+  "photo_B": "<image B>"
+}
+````
 
-1. **Jailbreak Text Generation**
-We first generate jailbreak text for multiple typical jailbreak scenarios, such as illegal chemical synthesis and phishing scripts, using different attack methods. 
+* **Output:**
 
-2. **Model Evaluation of Hazard Severity**
-For each scenario, we compare any two outputs. Several independent large models (e.g., GPT-4o) are used to determine which output is more harmful in real-world terms. A majority voting system is then employed to decide the "winner."
+```json
+{
+  "judgment": "A or B"
+}
+```
 
-3. **Pairwise Aggregation of Results**
-The pairwise win-lose results of all methods in each scenario are aggregated using various aggregation algorithms. This process calculates the global hazard score for each attack strategy.
+---
 
+## Display of Attack Results
 
-## Code of Rankings
+For safety and compliance considerations, only a subset of the generated examples is presented.
+
+As underlying multimodal models and their safety alignment mechanisms continue to evolve, our approach currently achieves a high jailbreak success rate and is capable of producing visually harmful content under existing defense systems. However, future improvements in safety filtering or alignment strategies may affect performance. Therefore, continuous monitoring and adaptive optimization are essential.
+
+![show](./res.png)
+
+---
+
+## Hazard Assessment Process Based on Ranking
+
+### 1. Jailbreak Image Generation
+
+We generate jailbreak images across multiple representative high-risk scenarios (e.g., illegal chemical synthesis, phishing-related visual instructions) using different attack strategies.
+
+### 2. Model-Based Hazard Severity Evaluation
+
+For each scenario, we perform pairwise comparisons between any two generated images. Multiple independent large models (e.g., GPT-4o) are employed to determine which image is more harmful in real-world terms. A majority voting mechanism is then applied to decide the winner.
+
+### 3. Pairwise Aggregation of Results
+
+The pairwise win–loss outcomes of all methods within each scenario are aggregated using various ranking algorithms. This process computes a global hazard score for each attack strategy.
+
+---
+
+## Ranking Code
+
+---
 
 ## Requirements
 
-To install requirements:
+To install the required dependencies:
 
-```setup
+```bash
 pip install -r requirements.txt
 ```
 
+---
+
 ## How to Use
 
-### 1.Prepare Your Data
+### 1. Prepare Your Data
 
-Each script expects a `config*.json` file with match data. Example:
+Each script expects a `config*.json` file containing match data. Example:
 
 ```json
 {
@@ -58,13 +76,20 @@ Each script expects a `config*.json` file with match data. Example:
 }
 ```
 
-- Each entry: `[playerA, playerB, winsA, winsB]`
-- For `configElo.json`, you must also include a `"methods"` list:
-  ```json
-  "methods": ["method1", "method2", "method3"]
-  ```
+* Each entry follows the format:
+  `[playerA, playerB, winsA, winsB]`
 
-### 2.Run Scripts
+* For `configElo.json`, you must also include a `"methods"` list:
+
+```json
+{
+  "methods": ["method1", "method2", "method3"]
+}
+```
+
+---
+
+### 2. Run the Scripts
 
 ```bash
 python Elo.py
@@ -72,4 +97,7 @@ python HodgeRank.py
 python RankCentrality.py
 ```
 
-Each script will print the final ranking results.
+Each script will output the final ranking results.
+
+```
+```
