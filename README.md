@@ -39,7 +39,7 @@ We generate jailbreak images across multiple representative high-risk scenarios 
 
 ### 2. Model-Based Hazard Severity Evaluation
 
-For each scenario, we perform pairwise comparisons between any two generated images. Multiple independent large models (e.g., GPT-4o) are employed to determine which image is more harmful in real-world terms. A majority voting mechanism is then applied to decide the winner.
+For each scenario, we perform pairwise comparisons between any two generated images. Multiple independent large models (e.g., GPT-4o) are employed to determine which image is more harmful in real-world terms. 
 
 ### 3. Pairwise Aggregation of Results
 
